@@ -50,7 +50,7 @@ cd vps && rm -rf .git && cd headscale
 6. Extract the **token** from the command and:
    - Open the compose file:
      ```bash
-     nano compose.yaml
+     vim compose.yaml
      ```
    - Replace the token in the appropriate environment variable.
    - Save and close the compose.yaml
@@ -61,7 +61,7 @@ cd vps && rm -rf .git && cd headscale
 
 1. Open the config file:
    ```bash
-   nano config/config.yaml
+   vim config/config.yaml
    ```
 
 2. Edit the following lines:
@@ -137,7 +137,7 @@ docker exec -it headscale headscale preauthkeys create --user tailscale --reusab
 1. Copy the generated **auth key**.
 2. Back on the Raspberry Pi, open the compose file:
    ```bash
-   nano compose.yaml
+   vim compose.yaml
    ```
 
 3. Replace the placeholder `TS_AUTHKEY` on line 17 with your copied key.
