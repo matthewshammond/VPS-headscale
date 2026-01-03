@@ -49,9 +49,11 @@ cd vps && rm -rf .git && cd headscale
    - Copy the generated Docker command.
 6. Extract the **token** from the command and:
    - Open the compose file:
+
      ```bash
      vim compose.yaml
      ```
+
    - Replace the token in the appropriate environment variable.
    - Save and close the compose.yaml
 
@@ -60,16 +62,20 @@ cd vps && rm -rf .git && cd headscale
 ## ✨ Deploy the Headscale Server
 
 1. Open the config file:
+
    ```bash
    vim config/config.yaml
    ```
 
 2. Edit the following lines:
    - **Line 13**: Set your domain:
+
      ```yaml
      server_url: https://headscale.mydomain.com
      ```
+
    - **Line 275** (optional): Update your local base domain:
+
      ```yaml
      base_domain: local.mydomain.com
      ```
@@ -77,17 +83,19 @@ cd vps && rm -rf .git && cd headscale
 3. Save and exit.
 
 4. Start the Docker container:
+
    ```bash
    docker compose up -d
    ```
+
 ---
 
-## 🌐 Complete Cloudflare Set Up 
+## 🌐 Complete Cloudflare Set Up
 
 1. Go back to Cloudflare and click **Next**.
 2. Set up a public hostname:
    - Subdomain: `headscale`
-   - Domain: *(Select from dropdown)*
+   - Domain: _(Select from dropdown)_
    - Service: `HTTP`
    - URL: `headscale:8080`
    - Save and finish setup.
@@ -98,26 +106,31 @@ cd vps && rm -rf .git && cd headscale
 
 1. Flash an OS to your Pi's SD card and boot it up.
 2. SSH into your Pi:
+
    ```bash
    ssh pi@<raspberrypi-ip>
    ```
 
 3. Update & upgrade packages:
+
    ```bash
    sudo apt update && sudo apt upgrade -y
    ```
 
 4. Install Docker:
+
    ```bash
    curl -sSL https://get.docker.com | sh
    ```
 
 5. Confirm Docker is working:
+
    ```bash
    docker --version
    ```
 
 6. Clone the repo:
+
    ```bash
    git clone https://github.com/matthewshammond/VPS-headscale.git vps
    cd vps && rm -rf .git && cd tailscale
@@ -131,11 +144,15 @@ Back on your VPS:
 
 ```bash
 docker exec -it headscale headscale user create tailscale
-docker exec -it headscale headscale preauthkeys create --user tailscale --reusable --expiration 24h
+docker exec -it headscale headscale preauthkeys create --user **1** --reusable --expiration 24h
 ```
+
+> [!NOTE]
+> Where "1" or other number is the ID corresponding to the user we just created, i.e., "tailscale"
 
 1. Copy the generated **auth key**.
 2. Back on the Raspberry Pi, open the compose file:
+
    ```bash
    vim compose.yaml
    ```
@@ -144,6 +161,7 @@ docker exec -it headscale headscale preauthkeys create --user tailscale --reusab
 4. Save and exit.
 
 5. Start Tailscale:
+
    ```bash
    docker compose up -d
    ```
@@ -153,13 +171,14 @@ docker exec -it headscale headscale preauthkeys create --user tailscale --reusab
 ## 🔐 Add More Clients
 
 1. To add more clients, execute the commands from the app in your VPS
+
 ```bash
 docker exec -it headscale <command from app>
 ```
 
 ---
 
-## ✅ Done!
+## ✅ Done
 
 Your Headscale instance is now live and accessible securely via Cloudflare, and your Raspberry Pi is connected as a client.
 
